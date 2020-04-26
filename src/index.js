@@ -4,6 +4,7 @@ import FormPost from './formPost';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'reactstrap';
 import PostCard from './postCard';
+import LearnState from './learnState'
 
 class App extends React.Component{
 
@@ -11,8 +12,9 @@ class App extends React.Component{
         return(
            <React.Fragment>
                <Container>
-                   <FormPost />
-                   <PostCard />
+                   {/* <FormPost />
+                   <PostCard /> */}
+                    <LearnState />
                </Container>
            </React.Fragment>
         )
