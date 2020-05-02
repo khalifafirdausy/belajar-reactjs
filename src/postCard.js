@@ -4,46 +4,26 @@ import molly from './molly.png';
 
 class PostCard extends React.Component{
     render(){
+        console.log(this.props.nama)
         return(
             <React.Fragment>
                 <CardDeck>
 
-                    <Card>
-                        <CardImg top width='100%' src={molly} />
-                        <CardBody>
-                            <CardTitle><b>Maulana Ucup</b></CardTitle>
-                            <CardText>Halo nama gua ucup</CardText>
-                            <Button color='info'>Edit</Button>{' '}
-                            <Button color='danger'>Hapus</Button>
-                        </CardBody>
-                    </Card>
-
-                    <Card>
-                        <CardImg top width='100%' src={molly} />
-                        <CardBody>
-                            <CardTitle>Maulana Ucup</CardTitle>
-                            <CardText>Halo nama gua ucup</CardText>
-                            <Button color='danger'>Hapus</Button>
-                        </CardBody>
-                    </Card>
-
-                    <Card>
-                        <CardImg top width='100%' src={molly} />
-                        <CardBody>
-                            <CardTitle>Maulana Ucup</CardTitle>
-                            <CardText>Halo nama gua ucup</CardText>
-                            <Button color='danger'>Hapus</Button>
-                        </CardBody>
-                    </Card>
-
-                    <Card>
-                        <CardImg top width='100%' src={molly} />
-                        <CardBody>
-                            <CardTitle>Maulana Ucup</CardTitle>
-                            <CardText>Halo nama gua ucup</CardText>
-                            <Button color='danger'>Hapus</Button>
-                        </CardBody>
-                    </Card>
+                    {
+                        this.props.data.map((data) => {
+                            return(
+                                <Card key={data.id} >
+                                    <CardImg top width='100%' src={molly} />
+                                    <CardBody>
+                                        <CardTitle><b>{data.title}</b></CardTitle>
+                                        <CardText>{data.text}</CardText>
+                                        <Button color='info'>Edit</Button>{' '}
+                                        <Button color='danger'>Hapus</Button>
+                                    </CardBody>
+                                </Card>
+                            )
+                        })
+                    }
                     
                 </CardDeck>
             </React.Fragment>

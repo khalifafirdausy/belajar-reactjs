@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {Button} from 'reactstrap'
+import {Button, Form, FormGroup, Label, Input} from 'reactstrap'
 
 class LearnState extends Component {
 
   state = {
+    namaSementara: '',
     nama: 'kalipa',
     umur: 30,
     data_diri: {
@@ -33,8 +34,15 @@ class LearnState extends Component {
     ]
   }
 
-  changeName(){
-    this.setState({nama: 'alip'})
+  changeName(value){
+    this.setState({nama: value})
+  }
+
+  handleForm(event){
+    console.log(event.target.value)
+    // this.setState({nama: event.target.value})
+    // this.changeName(event.target.value)
+    this.setState({namaSementara: event.target.value})
   }
 
   addAge(){
@@ -47,6 +55,22 @@ class LearnState extends Component {
     if (ageNow > 18) {
       this.setState({umur: ageNow-1})
     }
+  }
+
+  // fungsi tambah takjil
+  addTakjil(){
+    let takjilNow = this.state.takjil
+    // tambah item
+    takjilNow.push('kolak')
+    this.setState({takjil: takjilNow})
+  }
+
+  removeTakjil(){
+    let takjilNow = this.state.takjil
+
+    // buang item
+    takjilNow.pop()
+    this.setState({takjil: takjilNow})
   }
 
   render(){
@@ -69,7 +93,7 @@ class LearnState extends Component {
         })
       }
       <p>===============================</p>
-      {
+      {/* {
         this.state.friends.map((teman) => {
           return(
             <React.Fragment>
@@ -82,10 +106,19 @@ class LearnState extends Component {
             </React.Fragment>
           )
         })
-      }
-      <Button onClick={() => this.changeName()} color='success' >Ganti Nama</Button>
+      } */}
+      <Form>
+        <FormGroup>
+          <Label for="name">Nama</Label>
+          <Input type="text" name="nama" id="name" placeholder="tulis nama disini" onChange={(event) => this.handleForm(event)} />
+        </FormGroup>
+      </Form>
+      <Button onClick={() => this.changeName(this.state.namaSementara)} color='success' >submit</Button>
+
       <Button onClick={() => this.addAge()} color='warning' >Tambah Umur</Button>
       <Button onClick={() => this.minAge()} color='danger' >Kurangin Umur</Button>
+      <Button onClick={() => this.addTakjil()} color='info' >Tambah Takjil</Button>
+      <Button onClick={() => this.removeTakjil()} color='danger' >Kurangin Takjil</Button>
     </div>
     )
   }
