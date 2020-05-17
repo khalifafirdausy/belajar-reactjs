@@ -37,7 +37,16 @@ class App extends React.Component{
         //         text: 'Halo nama gua Hana'
         //     }
         // ]
-        posts: []
+        posts: [],
+        postSementara: {
+            "userId": 1,
+            "id": 1,
+            "title": "",
+            "body": ""
+        },
+        statusButton:{
+            isEdit: false
+        }
     }
 
     getPostAPI = () => {
@@ -59,14 +68,58 @@ class App extends React.Component{
         })
     }
 
+    updatePostAPI = (id, formPost) => {
+        Axios.put(`http://localhost:3004/post/${id}`, formPost).then((res) => {
+            console.log(res)
+        })
+    }
+
     handleButtonDelete = (id) => {
         this.deletePostAPI(id)
         this.getPostAPI()
     }
 
     handleButtonCreate = (FormPost) => {
-        this.createPostAPI(FormPost)
+        if(this.state.statusButton.isEdit == true){
+            this.updatePostAPI(this.state.postSementara.id, FormPost)
+            console.log(this.state.postSementara.id)
+            
+            this.setState({statusButton: {
+                isEdit: false
+            }})
+        }else {
+            this.createPostAPI(FormPost)
+        }
+        
         this.getPostAPI()
+    }
+
+    handleButtonEdit = (data) => {
+        // console.log("INi Button Edit")
+        // console.log(data)
+        this.setState({postSementara: data})
+        this.setState({statusButton: {
+            isEdit: true
+        }})
+    }
+
+    handleForm = (event) => {
+        console.log(event.target.name)
+
+        let postSementaraNew = {...this.state.postSementara}
+
+        // Rubah title atau body
+        postSementaraNew[event.target.name] = event.target.value
+
+        // Rubah id
+        if(this.state.statusButton.isEdit == false){
+            postSementaraNew['id'] = Date.now()
+        }
+        
+        // console.log(postSementara)
+        this.setState({postSementara: postSementaraNew}, () => {
+            console.log(this.state.postSementara)
+        })
     }
 
     componentDidMount(){
@@ -77,8 +130,8 @@ class App extends React.Component{
         return(
            <React.Fragment>
                <Container>
-                   <FormPost handleButtonCreate={this.handleButtonCreate}/>
-                   <PostCard data={this.state.posts} handleButtonDelete={this.handleButtonDelete} />
+                   <FormPost handleButtonCreate={this.handleButtonCreate} handleForm={this.handleForm} postSementara={this.state.postSementara} statusButton={this.state.statusButton}/>
+                   <PostCard data={this.state.posts} handleButtonDelete={this.handleButtonDelete} handleButtonEdit={this.handleButtonEdit} />
                     {/* <LearnState /> */}
                </Container>
            </React.Fragment>

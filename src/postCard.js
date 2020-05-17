@@ -3,6 +3,7 @@ import { Card, Button, CardImg, CardTitle, CardText, CardDeck, CardBody, Col } f
 import molly from './molly.png';
 
 class PostCard extends React.Component{
+
     render(){
         // console.log(this.props.data)
         return(
@@ -16,7 +17,7 @@ class PostCard extends React.Component{
                                         <CardBody>
                                             <CardTitle><b>{data.title}</b></CardTitle>
                                             <CardText>{data.body}</CardText>
-                                            <Button color='info'>Edit</Button>{' '}
+                                            <Button onClick={() => this.props.handleButtonEdit(data)} color='info'>Edit</Button>{' '}
                                             <Button onClick={() => this.props.handleButtonDelete(data.id)} color='danger'>Delete</Button>
                                         </CardBody>
                                     </Card>

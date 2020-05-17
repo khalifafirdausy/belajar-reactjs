@@ -3,33 +3,18 @@ import { Button, Form, Label, Input, FormGroup } from 'reactstrap';
 
 class FormPost extends React.Component{
     
-    state = {
-        postSementara: {
-            "userId": 1,
-            "id": 1,
-            "title": "",
-            "body": ""
-        }
-    }
-
-    handleForm = (event) => {
-        console.log(event.target.name)
-
-        let postSementaraNew = {...this.state.postSementara}
-
-        // Rubah title atau body
-        postSementaraNew[event.target.name] = event.target.value
-
-        // Rubah id
-        postSementaraNew['id'] = Date.now()
-        
-        // console.log(postSementara)
-        this.setState({postSementara: postSementaraNew}, () => {
-            console.log(this.state.postSementara)
-        })
-    }
+    // state = {
+    //     postSementara: {
+    //         "userId": 1,
+    //         "id": 1,
+    //         "title": "",
+    //         "body": ""
+    //     }
+    // }
 
     render(){
+        // Ternary Operator
+        console.log(this.props.statusButton.isEdit?'INI BENAR':'INI SALAH')
         return(
             <React.Fragment>
                 <br></br>
@@ -38,16 +23,16 @@ class FormPost extends React.Component{
                 <Form>
                     <FormGroup>
                          <Label>Title: </Label>
-                         <Input name="title" onChange={(event) => this.handleForm(event)} type='text' placeholder='isi disini' />
+                         <Input name="title" onChange={(event) => this.props.handleForm(event)} type='text' placeholder='isi disini' value={this.props.postSementara.title} />
                     </FormGroup>
 
                     <FormGroup>
                          <Label>Body: </Label>
-                         <Input name="body" onChange={(event) => this.handleForm(event)} type='textarea' placeholder='isi disini' />
+                         <Input name="body" onChange={(event) => this.props.handleForm(event)} type='textarea' placeholder='isi disini' value={this.props.postSementara.body} />
                     </FormGroup>
 
                     <FormGroup>
-                        <Button onClick={() => this.props.handleButtonCreate(this.state.postSementara)} color='primary'>Submit</Button>
+                        <Button onClick={() => this.props.handleButtonCreate(this.props.postSementara)} color='primary'>{this.props.statusButton.isEdit?'Edit':'Submit'}</Button>
                     </FormGroup>
                 </Form>
                 <br></br>
